@@ -241,5 +241,15 @@ def main(
 if __name__ == "__main__":
     main()
 
+    # example domains
+    # TODO eventually create automated tests to see that the
+    #      ad-hoc api is not broken
+
+    # links only
     # https://start.me/p/rx6Qj8/nixintel-s-osint-resource-list
+
+    # links and notes
     # https://start.me/p/rxRbpo/ti
+
+    # links and rsslist
+    # https://start.me/p/7kLY9R/osint-chine
