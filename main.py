@@ -89,7 +89,7 @@ class UnexpectedWidgetType(Exception):
 
 
 def parse_notes_widget(w):
-    " return the text of the note(s) "
+    """ return the text of the note(s) """
     texts = [note["text"] for note in w["items"]["notes"]]
     return "\n".join(texts)
 
@@ -116,7 +116,7 @@ def parse_widget(w):
 
 
 def ilen(it):
-    " consume iterable and return its length "
+    """ consume iterable and return its length """
     return sum(map(lambda _: 1, it))
 
 
@@ -126,7 +126,7 @@ write_temp_t = lambda t: Path("tmpout.txt").write_text(t, encoding="utf-8")
 
 
 def parse_result(response):
-
+    """ for each widget select an appropriate handler method and hand it the widget """
     all_widgets = chain.from_iterable(
         column["widgets"] for column in response["page"]["columns"]
     )
@@ -137,7 +137,7 @@ def parse_result(response):
 
 def main():
     # url = "https://start.me/p/rx6Qj8/nixintel-s-osint-resource-list"
-    url = "https://start.me/p/rxRbpo/ti"
+    url = "https://start.me/p/rxRbpo/ti" #< the url to be scraped
     page_id = StartMe.get_id_from_url(url)
     raw_filename = f"{page_id}-raw.json"
 
