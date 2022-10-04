@@ -45,8 +45,8 @@ logt_error = with_args(log_error, datetime.now().time())
 logt_warn = with_args(log_warn, datetime.now().time())
 logt_info = with_args(log_info, datetime.now().time())
 
-
 def json_pp(o) -> str:
+    " pretty print json object "
     return json.dumps(o, indent=2)
 
 
@@ -65,6 +65,7 @@ class StartMe:
 
 
 def parse_urllist_widget(w):
+    " return all links and their text "
     def do_link(link):
         return link["title"] + " ! " + link["url"]
 
@@ -88,7 +89,9 @@ class UnexpectedWidgetType(Exception):
 
 
 def parse_notes_widget(w):
-    return "notes w did"
+    " return the text of the note(s) "
+    texts = [note["text"] for note in w["items"]["notes"]]
+    return "\n".join(texts)
 
 
 class WidgetTypeMapper:
@@ -113,6 +116,7 @@ def parse_widget(w):
 
 
 def ilen(it):
+    " consume iterable and return its length "
     return sum(map(lambda _: 1, it))
 
 
@@ -137,7 +141,7 @@ def main():
     page_id = StartMe.get_id_from_url(url)
     raw_filename = f"{page_id}-raw.json"
 
-    if download := 0:
+    if download := 1: # download the live version
         resource = StartMe.get_resource_url(url)
 
         response = requests.get(resource, headers=headers).json()
@@ -145,8 +149,7 @@ def main():
         logt_info("Download completed")
 
         Path(raw_filename).write_text(json_pp(response), encoding="utf-8")
-    else:
-
+    else: # use the cached version
         with Path(raw_filename).open("r", encoding="utf-8") as f:
             response = json.load(f)
 
