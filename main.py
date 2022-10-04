@@ -229,10 +229,13 @@ def main(
     logt_info("Starting parse")
     output = parse_result(response)
     logt_info("Finished parsing")
-    if format_is_json := 1:
+    if format == "json":
         out_path.write_text(
             (json_pp if pretty else json.dumps)(output), encoding="utf-8"
         )
+    else:
+        logt_error("Format not supported yet")
+        exit(1)
 
 
 if __name__ == "__main__":
